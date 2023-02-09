@@ -1,0 +1,25 @@
+
+
+
+1. скрипт - запускается 1 раз
+2. должно быть запущено всегда
+
+# http://127.0.0.1:5000
+# ports flask 8000 flask 8001 postgres 5031
+# http Hypertext transer ptotocol <html></html>
+# https Ross Anderson
+
+# http://127.0.0.1:5000 Representational state transfer
+# GET /books
+# GET /books/<book_id>
+# POST /books {name: some_name, author: some_author}
+# PUT /books/<book_id> {name: new_name, author: new_author}
+# PATCH /books/<book_id> {author: new_author}
+# DELETE /books/<book_id>
+# OPTIONS
+
+
+# 200 -everything is ok 201 - post
+# 30X - redirect
+# 40x - 404 Not found 403  Forbidden
+# 500 Error server

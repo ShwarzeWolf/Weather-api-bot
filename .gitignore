@@ -1,0 +1,4 @@
+settings.py
+*.txt
+.idea
+__pycache__/*

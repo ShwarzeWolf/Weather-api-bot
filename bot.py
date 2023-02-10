@@ -13,9 +13,13 @@ user_cities = {}
 # TODO add database to store information
 
 
+def get_user_city(chat_id):
+    return user_cities.get(chat_id, default_city)
+
+
 @bot.message_handler(commands=['get_weather'])
 def send_weather(message):
-    user_city = user_cities.get(message.chat.id, default_city)
+    user_city = get_user_city(message.chat.id)
     weather = get_weather(user_city)
     bot.send_message(message.chat.id, weather)
 
@@ -34,7 +38,7 @@ def proceed_city(message):
 
 @bot.message_handler(commands=['get_settings'])
 def get_city(message):
-    user_city = user_cities.get(message.chat.id, default_city)
+    user_city = get_user_city(message.chat.id)
     bot.send_message(message.chat.id, f'Your current city is {user_city}')
 
 

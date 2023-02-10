@@ -5,7 +5,10 @@ from telebot import TeleBot
 from settings import BOT_TOKEN
 
 bot = TeleBot(BOT_TOKEN)
-city = 'Yerevan'
+default_city = 'Yerevan'
+
+user_cities = {}
+
 
 @bot.message_handler(commands=['get_weather'])
 def send_weather(message):
@@ -21,14 +24,14 @@ def ask_city(message):
 
 def proceed_city(message):
     bot.send_message(message.chat.id, f'Wow, {message.text} is a great city!')
-    global city
-    city = message.text
+    user_cities[message.chat.id] = message.text
     bot.send_message(message.chat.id, 'I saved it in settings')
 
 
 @bot.message_handler(commands=['get_settings'])
 def get_city(message):
-    bot.send_message(message.chat.id, f'Your current city is {city}')
+    user_city = user_cities.get(message.chat.id, default_city)
+    bot.send_message(message.chat.id, f'Your current city is {user_city}')
 
 
 bot.polling()

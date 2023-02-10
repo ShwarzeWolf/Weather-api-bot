@@ -1,8 +1,7 @@
 
 from collections import namedtuple
-
-import requests
 from settings import WEATHER_API_KEY
+import requests
 
 Coordinates = namedtuple('Coordinates', ('latitude', 'longitude'))
 Yerevan = Coordinates(40.178836, 44.50525)

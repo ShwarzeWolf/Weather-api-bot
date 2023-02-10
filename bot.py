@@ -8,6 +8,9 @@ bot = TeleBot(BOT_TOKEN)
 default_city = 'Yerevan'
 
 user_cities = {}
+# too much operative memory
+# settings are lost during re-launch -> databases SQLite
+# TODO add database to store information
 
 
 @bot.message_handler(commands=['get_weather'])

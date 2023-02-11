@@ -13,7 +13,8 @@ cities = {}
 
 @bot.message_handler(commands=['get_weather'])
 def send_weather(message):
-    weather = get_weather()
+    user_city = cities.get(message.chat.id, default_city)
+    weather = get_weather(user_city)
     bot.send_message(message.chat.id, weather)
 
 

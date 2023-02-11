@@ -6,7 +6,9 @@ from telebot import TeleBot
 
 bot = TeleBot(BOT_TOKEN)
 
-city = 'Yerevan'
+# TODO: migrate SQLite
+default_city = 'Yerevan'
+cities = {}
 
 
 @bot.message_handler(commands=['get_weather'])
@@ -23,14 +25,14 @@ def ask_city(message):
 
 def proceed_city(message):
     bot.send_message(message.chat.id, f'Wow, {message.text} is a great city!')
-    global city
-    city = message.text
+    cities[message.chat.id] = message.text
     bot.send_message(message.chat.id, 'I saved it to get a weather forecast')
 
 
 @bot.message_handler(commands=['get_settings'])
 def get_settings(message):
-    bot.send_message(message.chat.id, f'Your city to get weather: {city}')
+    user_city = cities.get(message.chat.id, default_city)
+    bot.send_message(message.chat.id, f'Your city to get weather: {user_city}')
 
 
 bot.polling()

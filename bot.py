@@ -1,42 +1,10 @@
 
 from settings import BOT_TOKEN
 from logic import get_weather
+from repositories import get_user_city, save_user_city
 
 from telebot import TeleBot
-import sqlite3
 bot = TeleBot(BOT_TOKEN)
-
-# TODO: migrate SQLite
-default_city = 'Yerevan'
-cities = {}
-# chat_id : city_name | 224787: Surgut
-
-
-def get_user_city(chat_id):
-    con = sqlite3.connect("database.db")
-    cur = con.cursor()
-
-    cur.execute("SELECT city FROM user_cities WHERE chat_id = (?)", (chat_id,))
-    city = cur.fetchone()
-    if city:
-        return city[0]
-    else:
-        return default_city
-
-
-def save_user_city(chat_id, city):
-    con = sqlite3.connect("database.db")
-    cur = con.cursor()
-
-    cur.execute("SELECT city FROM user_cities WHERE chat_id = (?)", (chat_id,))
-    result = cur.fetchone()
-
-    if not result:
-        cur.execute("INSERT INTO user_cities VALUES(?, ?)", (chat_id, city))
-    else:
-        cur.execute("UPDATE user_cities SET city = (?) WHERE chat_id = (?)", (city, chat_id))
-
-    con.commit()
 
 
 @bot.message_handler(commands=['get_weather'])

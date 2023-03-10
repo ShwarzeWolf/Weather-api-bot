@@ -1,7 +1,7 @@
 from repositories import get_user_city, save_user_city
 from settings import BOT_TOKEN
 from logic import get_weather
-
+from logging_setup import logging
 from telebot import TeleBot
 
 bot = TeleBot(BOT_TOKEN)
@@ -12,6 +12,7 @@ def send_weather(message):
     user_city = get_user_city(message.chat.id)
     weather = get_weather(user_city)
     bot.send_message(message.chat.id, weather)
+    logging.info(f"User with id {message.chat.id} asked a weather")
 
 
 @bot.message_handler(commands=['setup'])
@@ -30,6 +31,12 @@ def proceed_city(message):
 def get_settings(message):
     user_city = get_user_city(message.chat.id)
     bot.send_message(message.chat.id, f'Your city to get weather: {user_city}')
+
+
+@bot.message_handler(commands=['generate_error'])
+def generate_error(message):
+    logging.error("Something went really wrong")
+    bot.send_message(message.chat.id, "generated")
 
 
 bot.polling()

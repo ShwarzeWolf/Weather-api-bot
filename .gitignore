@@ -2,3 +2,4 @@ settings.py
 *.txt
 .idea
 __pycache__/*
+venv/*

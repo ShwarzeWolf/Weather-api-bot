@@ -1,6 +1,10 @@
+import telebot
+
 from repositories import get_user_city, save_user_city
 from settings import BOT_TOKEN
 from logic import get_weather
+
+from logging_setup import logging
 
 from telebot import TeleBot
 
@@ -12,6 +16,7 @@ def send_weather(message):
     user_city = get_user_city(message.chat.id)
     weather = get_weather(user_city)
     bot.send_message(message.chat.id, weather)
+    logging.info(f'User with id {message.chat.id} asked a weather in {user_city}')
 
 
 @bot.message_handler(commands=['setup'])
@@ -23,6 +28,7 @@ def ask_city(message):
 def proceed_city(message):
     bot.send_message(message.chat.id, f'Wow, {message.text} is a great city!')
     save_user_city(message.chat.id, message.text)
+    logging.info(f'User with id {message.chat.id} changed it\'s city')
     bot.send_message(message.chat.id, 'I saved it to get a weather forecast')
 
 

@@ -3,7 +3,7 @@ import sqlite3
 DEFAULT_CITY = 'Yerevan'
 
 
-def get_user_city(chat_id):
+def get_user_city(chat_id: int) -> str:
     connection = sqlite3.connect("database.db")
     cursor = connection.cursor()
     cursor.execute("SELECT city FROM user_cities WHERE chat_id = (?)", (chat_id,))
@@ -11,7 +11,7 @@ def get_user_city(chat_id):
     return city[0] if city else DEFAULT_CITY
 
 
-def save_user_city(chat_id, city):
+def save_user_city(chat_id: int, city: str) -> None:
     connection = sqlite3.connect("database.db")
     cursor = connection.cursor()
 

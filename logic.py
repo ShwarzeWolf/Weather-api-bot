@@ -1,7 +1,7 @@
-
 from collections import namedtuple
 
 import requests
+
 from settings import WEATHER_API_KEY
 
 Coordinates = namedtuple('Coordinates', ('latitude', 'longitude'))

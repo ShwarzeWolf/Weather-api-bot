@@ -1,12 +1,10 @@
 import telebot
-
-from repositories import get_user_city, save_user_city
-from settings import BOT_TOKEN
-from logic import get_weather
+from telebot import TeleBot
 
 from logging_setup import logging
-
-from telebot import TeleBot
+from logic import get_weather
+from repositories import get_user_city, save_user_city
+from settings import BOT_TOKEN
 
 bot = TeleBot(BOT_TOKEN)
 
